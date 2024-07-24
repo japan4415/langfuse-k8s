@@ -37,29 +37,41 @@ spec:
             - name: NODE_ENV
               value: {{ .Values.langfuse.nodeEnv | quote }}
             - name: DATABASE_USERNAME
-              valueFrom: {{ include "langfuse.postgresql.auth.username.valueFrom" . | nindent 16 }}
+              value: {{ .Values.postgresql.auth.username | quote }}
             - name: DATABASE_PASSWORD
-              valueFrom: {{ include "langfuse.postgresql.auth.password.valueFrom" . | nindent 16 }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "langfuse.postgresql.fullname" . }}
+                  key: postgres-password
             - name: DATABASE_HOST
               value: {{ .Values.postgresql.deploy | ternary (include "langfuse.postgresql.fullname" . | quote) (.Values.postgresql.host | quote) }}
             - name: DATABASE_NAME
-              valueFrom: {{ include "langfuse.postgresql.auth.database.valueFrom" . | nindent 16 }}
+              value: {{ .Values.postgresql.auth.database | quote }}
             {{- if not .Values.postgresql.deploy }}
             {{- if .Values.postgresql.directUrl }}
             - name: DIRECT_URL
-              valueFrom: {{ include "langfuse.postgresql.directURL.valueFrom" . | nindent 16 }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "langfuse.postgresqlSecretName" . }}
+                  key: postgres-direct-url
             {{- end }}
             {{- if .Values.postgresql.shadowDatabaseUrl }}
             - name: SHADOW_DATABASE_URL
-              valueFrom: {{ include "langfuse.postgresql.shadowDatabaseURL.valueFrom" . | nindent 16 }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "langfuse.postgresqlSecretName" . }}
+                  key: postgres-shadow-database-url
             {{- end }}
             {{- end }}
             - name: NEXTAUTH_URL
-              valueFrom: {{ include "langfuse.nextauth.url.valueFrom" . | nindent 16 }}
+              value: {{ .Values.langfuse.nextauth.url | quote }}
             - name: NEXTAUTH_SECRET
-              valueFrom: {{ include "langfuse.nextauth.secret.valueFrom" . | nindent 16 }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "langfuse.nextauthSecretName" . }}
+                  key: nextauth-secret
             - name: SALT
-              valueFrom: {{ include "langfuse.salt.valueFrom" . | nindent 16 }}
+              value: {{ .Values.langfuse.salt | quote }}
             - name: TELEMETRY_ENABLED
               value: {{ .Values.langfuse.telemetryEnabled | quote }}
             - name: NEXT_PUBLIC_SIGN_UP_DISABLED
