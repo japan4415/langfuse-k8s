@@ -113,13 +113,13 @@ Create the valueFrom json for DATABASE_HOST
 */}}
 {{- define "langfuse.postgresql.databaseHost.valueFrom" -}}
 {{- if .Values.postgresql.deploy -}}
-configMapRef:
+configMapKeyRef:
   name: {{ include "langfuse.postgresqlConfigMapName" . }}
   key: postgres-database
 {{- else if .Values.langfuse.postgresql.host.valueFrom -}}
 {{- toYaml .Values.langfuse.postgresql.host.valueFrom }}
 {{- else -}}
-configMapRef:
+configMapKeyRef:
   name: {{ include "langfuse.postgresqlConfigMapName" . }}
   key: postgres-database
 {{- end }}
@@ -130,13 +130,13 @@ Create the valueFrom json for DATABASE_USERNAME
 */}}
 {{- define "langfuse.postgresql.auth.username.valueFrom" -}}
 {{- if .Values.postgresql.deploy -}}
-configMapRef:
+configMapKeyRef:
   name: {{ include "langfuse.postgresqlConfigMapName" . }}
   key: postgres-username
 {{- else if .Values.langfuse.postgresql.auth.username.valueFrom -}}
 {{- toYaml .Values.langfuse.postgresql.auth.username.valueFrom }}
 {{- else -}}
-configMapRef:
+configMapKeyRef:
   name: {{ include "langfuse.postgresqlConfigMapName" . }}
   key: postgres-username
 {{- end }}
@@ -153,7 +153,7 @@ secretKeyRef:
 {{- else if .Values.langfuse.postgresql.auth.password.valueFrom }}
 {{- toYaml .Values.langfuse.postgresql.auth.password.valueFrom }}
 {{- else -}}
-configMapRef:
+configMapKeyRef:
   name: {{ include "langfuse.postgresqlSecretName" . }}
   key: postgres-password
 {{- end }}
@@ -164,13 +164,13 @@ Create the valueFrom json for DATABASE_NAME
 */}}
 {{- define "langfuse.postgresql.auth.database.valueFrom" -}}
 {{- if .Values.postgresql.deploy -}}
-configMapRef:
+configMapKeyRef:
   name: {{ include "langfuse.postgresqlConfigMapName" . }}
   key: postgres-database
 {{- else if .Values.langfuse.postgresql.auth.database.valueFrom }}
 {{- toYaml .Values.langfuse.postgresql.auth.database.valueFrom }}
 {{- else -}}
-configMapRef:
+configMapKeyRef:
   name: {{ include "langfuse.postgresqlConfigMapName" . }}
   key: postgres-database
 {{- end }}
@@ -222,7 +222,7 @@ Create the valueFrom json for NEXTAUTH_URL
 {{- if .Values.langfuse.nextauth.url.valueFrom }}
 {{- toYaml .Values.langfuse.nextauth.url.valueFrom }}
 {{- else -}}
-configMapRef:
+configMapKeyRef:
   name: {{ include "langfuse.nextauthConfigMapName" . }}
   key: nextauth-url
 {{- end }}
