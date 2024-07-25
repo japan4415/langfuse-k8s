@@ -224,7 +224,7 @@ Create the valueFrom json for NEXTAUTH_URL
 {{- else -}}
 configMapKeyRef:
   name: {{ include "langfuse.nextauthConfigMapName" . }}
-  key: url
+  key: nextauth-url
 {{- end }}
 {{- end }}
 
@@ -237,6 +237,6 @@ Create the valueFrom json for NEXTAUTH_SECRET
 {{- else -}}
 secretKeyRef:
   name: {{ include "langfuse.nextauthSecretName" . }}
-  key: secret
+  key: nextauth-secret
 {{- end }}
 {{- end }}
