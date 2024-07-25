@@ -28,22 +28,13 @@ langfuse:
     auth:
       username:
         value: postgres
-        valueFrom:
-          configMapRef:
-            name: langfuse
-            key: postgres-username
+        valueFrom: {}
       password:
         value: postgres
-        valueFrom:
-          secretRef:
-            name: langfuse
-            key: postgres-password
+        valueFrom: {}
       database:
         value: postgres_langfuse
-        valueFrom:
-          configMapRef:
-            name: langfuse
-            key: postgres-database
+        valueFrom: {}
     directURL:
       value: ""
       valueFrom: {}
