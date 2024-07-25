@@ -13,10 +13,10 @@ data:
   postgres-database: {{ .Values.langfuse.postgresql.auth.database.value | toString | quote }}
   {{- end }}
   {{- if not .Values.langfuse.postgresql.host.valueFrom }}
-  {{- if .Values.langfuse.postgresql.host }}
-  postgres-database: {{ .Values.langfuse.postgresql.host.value | toString | quote }}
+  {{- if .Values.langfuse.postgresql.host.value }}
+  postgres-host: {{ .Values.langfuse.postgresql.host.value | toString | quote }}
   {{- else }}
-  postgres-database: ""
+  postgres-host: ""
   {{- end }}
   {{- end }}
 {{- end }}
