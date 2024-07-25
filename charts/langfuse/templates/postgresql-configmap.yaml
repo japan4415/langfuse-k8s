@@ -14,7 +14,7 @@ data:
   {{- end }}
   {{- if not .Values.langfuse.postgresql.host.valueFrom }}
   {{- if .Values.langfuse.postgresql.host }}
-  postgres-database: {{ .Values.langfuse.postgresql.auth.database.value | toString | quote }}
+  postgres-database: {{ .Values.langfuse.postgresql.host.value | toString | quote }}
   {{- else }}
   postgres-database: ""
   {{- end }}
